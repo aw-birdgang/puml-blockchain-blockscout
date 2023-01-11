@@ -1,0 +1,108 @@
+@startuml
+class addresses {
+  int8 fetched_coin_balance_block_number
+  bytea contract_code
+  + bytea hash
+  bytea contract_code
+  bytea inserted_at
+  bytea updated_at
+  int4 nonce
+  bool decompiled
+  bool verified
+  int8 gas_used
+  int4 transactions_count
+  int4 token_transfers_count
+}
+
+class address_coin_balance {
+    - bytea address_hash
+    int8 block_number
+    numeric value
+    timestamp value
+    timestamp value_fetched_at
+    timestamp inserted_at
+    timestamp updated_at
+}
+
+class address_coin_balance_daily {
+    - bytea address_hash
+    date day
+    numeric value
+    timestamp inserted_at
+    timestamp updated_at
+}
+
+
+class address_current_token_balances {
+    + bigserial id
+    - bytea address_hash
+    int8 block_number
+    - bytea token_contract_address_hash
+    numeric value
+    timestamp value_fetched_at
+    timestamp inserted_at
+    timestamp updated_at
+    numeric old_value
+    numeric token_id
+    varchar token_type
+}
+
+class address_token_balances {
+    + bigserial id
+    - bytea address_hash
+    int8 block_number
+    - bytea token_contract_address_hash
+    numeric value
+    timestamp value_fetched_at
+    timestamp inserted_at
+    timestamp updated_at
+    numeric token_id
+    varchar token_type
+}
+
+class blocks {
+    bool consensus
+    numeric difficulty
+    numeric gas_limit
+    numeric gas_used
+    + bytea hash
+    - bytea miner_hash
+    bytea nonce
+    int8 number
+    bytea parent_hash
+    int4 size
+    timestamp timestamp
+    numeric total_difficulty
+    timestamp inserted_at
+    timestamp updated_at
+    bool refetch_needed
+    numeric base_fee_per_gas
+    bool is_empty
+}
+
+
+class tokens {
+    varchar name
+    varchar symbol
+    numeric total_supply
+    numeric decimals
+    varchar type
+    bool cataloged
+    + bytea contract_address_hash
+    timestamp inserted_at
+    timestamp updated_at
+    int4 holder_count
+    bool skip_metadata
+}
+
+
+
+
+
+addresses --* blocks
+addresses --* address_coin_balance
+addresses --* address_coin_balance_daily
+addresses --* address_current_token_balances
+addresses --* address_token_balances
+
+@enduml
